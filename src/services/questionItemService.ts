@@ -1,9 +1,10 @@
 import { FunctionModel } from '@/models/function.model'
-import { StrapiPaginatedResponse } from '@/types/strapi-paginated-response'
-import { adaptFunctions, adaptSubFunctions } from './adapters'
-import api from './api'
-import { CascadingSelectOption } from '../components/molecules/cascading-select'
+import { PerformanceStardardsModel } from '@/models/performance-stardard'
 import { SubFunctionModel } from '@/models/sub-function.model'
+import { StrapiPaginatedResponse } from '@/types/strapi-paginated-response'
+import { CascadingSelectOption } from '../components/molecules/cascading-select'
+import { adaptFunctions, adaptPerformanceStardards, adaptSubFunctions } from './adapters'
+import api from './api'
 
 export const questionItemService = {
   // Buscar funções
@@ -35,10 +36,17 @@ export const questionItemService = {
   },
 
   // Buscar padrões de performance por subfunção
-  getPerformanceStandards: async (subFunctionId: string) => {
-    // const response = await api.get(`/performance-standards?filters[subFunction][id][$eq]=${subFunctionId}&populate=*`)
-    // return response.data
-    return []
+  getPerformanceStandards: async (subFunctionId: string): Promise<CascadingSelectOption[]> => {
+    const response = await api.get(`/performance-standards?filters[sub_function_senai][documentId][$eq]=${subFunctionId}&populate=*`)
+
+
+    const performanceStandards = adaptPerformanceStardards(
+      response.data as StrapiPaginatedResponse<PerformanceStardardsModel> 
+    )
+
+    console.log({ performanceStandards })
+
+    return performanceStandards
   },
 
   // Buscar capabilities SAEP
