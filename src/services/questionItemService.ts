@@ -10,6 +10,7 @@ export const questionItemService = {
     const response = await api.get(
       '/functions-senais?sort[0]=description:asc&populate=*&pagination[pageSize]=999&pagination[page]=1'
     )
+
     return adaptFunctions(
       response.data as StrapiPaginatedResponse<FunctionModel>
     )
