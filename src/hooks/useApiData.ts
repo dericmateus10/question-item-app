@@ -36,7 +36,7 @@ export const useApiData = () => {
     },
   })
 
-  const getSubFunctions = (functionId) => {
+  const getSubFunctions = (functionId: string) => {
     return {
       queryKey: ['sub-functions', functionId],
       queryFn: () => questionItemService.getSubFunctions(functionId),
@@ -44,7 +44,7 @@ export const useApiData = () => {
     }
   }
 
-  const getPerformanceStandards = (subFunctionId) => {
+  const getPerformanceStandards = (subFunctionId: string) => {
     // This function should not call useQuery directly
     // Instead, it should return a query key and function for useQuery to be called outside
     return {
@@ -54,29 +54,11 @@ export const useApiData = () => {
     }
   }
 
-  console.log('useApiData hook returning data:', {
-    functions: functionsQuery.data,
-    capabilitiesSaep: capabilitiesSaepQuery.data,
-    capabilities: capabilitiesQuery.data,
-    knowledges: knowledgesQuery.data,
-    isLoading:
-      functionsQuery.isLoading ||
-      capabilitiesSaepQuery.isLoading ||
-      capabilitiesQuery.isLoading ||
-      knowledgesQuery.isLoading,
-    errors: {
-      functions: functionsQuery.error,
-      capabilitiesSaep: capabilitiesSaepQuery.error,
-      capabilities: capabilitiesQuery.error,
-      knowledges: knowledgesQuery.error,
-    },
-  })
-
   return {
     functions: functionsQuery.data || [],
-    capabilitiesSaep: capabilitiesSaepQuery.data?.data || [],
-    capabilities: capabilitiesQuery.data?.data || [],
-    knowledges: knowledgesQuery.data?.data || [],
+    capabilitiesSaep: capabilitiesSaepQuery.data || [],
+    capabilities: capabilitiesQuery.data || [],
+    knowledges: knowledgesQuery.data || [],
     isLoading:
       functionsQuery.isLoading ||
       capabilitiesSaepQuery.isLoading ||

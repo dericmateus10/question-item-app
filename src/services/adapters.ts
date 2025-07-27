@@ -1,8 +1,9 @@
 import { CascadingSelectOption } from '../components/molecules/cascading-select'
 import { FunctionModel } from '@/models/function.model'
+import { SubFunctionModel } from '@/models/sub-function.model'
 import { StrapiPaginatedResponse } from '@/types/strapi-paginated-response'
 
-const adaptFunctions = (
+export const adaptFunctions = (
   serverResponse: StrapiPaginatedResponse<FunctionModel>
 ): CascadingSelectOption[] => {
   return serverResponse.data.map((_function) => ({
@@ -13,4 +14,13 @@ const adaptFunctions = (
   }))
 }
 
-export { adaptFunctions }
+export const adaptSubFunctions = (
+  serverResponse: StrapiPaginatedResponse<SubFunctionModel>
+): CascadingSelectOption[] => {
+  return serverResponse.data.map((subFunction) => ({
+    id: subFunction.documentId,
+    attributes: {
+      name: subFunction.description,
+    },
+  }))
+}

@@ -20,6 +20,7 @@ import { CascadingSelect } from '../../components/molecules/cascading-select'
 import { MarkdownEditor } from '../../components/molecules/markdown-editor'
 import { MultiSelect } from '../../components/molecules/multi-select'
 import { AlternativesList } from '../../components/organisms/alternatives-list'
+import { useQuery } from '@tanstack/react-query'
 
 export const QuestionForm: React.FC = () => {
   const { form, handleSubmit, isLoading } = useQuestionForm()
@@ -38,18 +39,20 @@ export const QuestionForm: React.FC = () => {
   const watchedCapabilitiesSaepId = form.watch('capabilitiesSaepId')
   const watchedCapabilityId = form.watch('capabilityId')
 
-  // const subFunctionsQuery = useQuery(getSubFunctions(watchedFunctionId))
-  // const performanceStandardsQuery = useQuery(
-  //   getPerformanceStandards(watchedSubFunctionId)
-  // )
+  const { data: subFunctionsData } = useQuery(
+    getSubFunctions(watchedFunctionId)
+  )
+  const performanceStandardsQuery = useQuery(
+    getPerformanceStandards(watchedSubFunctionId)
+  )
 
   // Reset dependent fields when parent changes
-  // useEffect(() => {
-  //   if (watchedFunctionId) {
-  //     form.setValue('subFunctionId', '')
-  //     form.setValue('performanceStandardId', '')
-  //   }
-  // }, [watchedFunctionId, form])
+  useEffect(() => {
+    if (watchedFunctionId) {
+      form.setValue('subFunctionId', '')
+      form.setValue('performanceStandardId', '')
+    }
+  }, [watchedFunctionId, form])
 
   // useEffect(() => {
   //   if (watchedSubFunctionId) {
@@ -171,7 +174,7 @@ export const QuestionForm: React.FC = () => {
             name='subFunctionId'
             label='Subfunção'
             control={form.control}
-            options={[]}
+            options={subFunctionsData || []}
             placeholder='Selecione uma subfunção'
             error={form.formState.errors.subFunctionId?.message}
             isLoading={false}
