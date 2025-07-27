@@ -1,7 +1,8 @@
 "use client"
 
-import  from "../src/components/atoms/button"
+import React from "react"
+import {CreateQuestionPage} from "../src/pages/create-question-page"
 
 export default function SyntheticV0PageForDeployment() {
-  return < />
+  return < CreateQuestionPage/>
 }
