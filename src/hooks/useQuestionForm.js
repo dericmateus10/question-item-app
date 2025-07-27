@@ -13,16 +13,8 @@ const schema = yup.object({
   functionId: yup.string().required("Função é obrigatória"),
   subFunctionId: yup.string().required("Subfunção é obrigatória"),
   performanceStandardId: yup.string().required("Padrão de performance é obrigatório"),
-  capabilitiesSaepId: yup.string().when("capabilityId", {
-    is: (val) => !val,
-    then: (schema) => schema.required("Selecione uma capability SAEP ou capability"),
-    otherwise: (schema) => schema.nullable(),
-  }),
-  capabilityId: yup.string().when("capabilitiesSaepId", {
-    is: (val) => !val,
-    then: (schema) => schema.required("Selecione uma capability SAEP ou capability"),
-    otherwise: (schema) => schema.nullable(),
-  }),
+  capabilitiesSaepId: yup.string().nullable(),
+  capabilityId: yup.string().nullable(),
   knowledgeIds: yup.array().min(1, "Selecione pelo menos um conhecimento"),
   alternatives: yup
     .array()
@@ -37,6 +29,9 @@ const schema = yup.object({
       const correctCount = alternatives?.filter((alt) => alt.isCorrect).length || 0
       return correctCount === 1
     }),
+}).test("capability-validation", "Selecione uma capability SAEP ou capability", function (value) {
+  const { capabilitiesSaepId, capabilityId } = value
+  return capabilitiesSaepId || capabilityId
 })
 
 export const useQuestionForm = () => {

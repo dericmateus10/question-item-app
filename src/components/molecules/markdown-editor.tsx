@@ -1,8 +1,8 @@
-import type React from "react"
-import { Controller } from "react-hook-form"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { cn } from "@/lib/utils"
+import type React from 'react'
+import { Controller } from 'react-hook-form'
+import { Label } from '../../../components/ui/label'
+import { Textarea } from '../../../components/ui/textarea'
+import { cn } from '../../../lib/utils'
 
 interface MarkdownEditorProps {
   name: string
@@ -22,7 +22,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
   error,
 }) => {
   return (
-    <div className={cn("space-y-2", className)}>
+    <div className={cn('space-y-2', className)}>
       <Label htmlFor={name}>{label}</Label>
       <Controller
         name={name}
@@ -32,11 +32,14 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
             {...field}
             id={name}
             placeholder={placeholder}
-            className={cn("min-h-[120px] font-mono text-sm", error && "border-destructive")}
+            className={cn(
+              'min-h-[120px] font-mono text-sm',
+              error && 'border-destructive'
+            )}
           />
         )}
       />
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {error && <p className='text-sm text-destructive'>{error}</p>}
     </div>
   )
 }
