@@ -1,9 +1,8 @@
 'use client'
 
-import type React from 'react'
-import { useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
@@ -11,16 +10,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Label } from '@/components/ui/label'
-import { Loader2 } from 'lucide-react'
-import { useQuestionForm } from '@/hooks/useQuestionForm'
 import { useApiData } from '@/hooks/useApiData'
-import { MarkdownEditor } from '../../components/molecules/markdown-editor'
+import { useQuestionForm } from '@/hooks/useQuestionForm'
+import { Loader2 } from 'lucide-react'
+import type React from 'react'
+import { useEffect } from 'react'
+import { Controller } from 'react-hook-form'
 import { CascadingSelect } from '../../components/molecules/cascading-select'
+import { MarkdownEditor } from '../../components/molecules/markdown-editor'
 import { MultiSelect } from '../../components/molecules/multi-select'
 import { AlternativesList } from '../../components/organisms/alternatives-list'
-import { Controller } from 'react-hook-form'
-import { useQuery } from '@tanstack/react-query'
 
 export const QuestionForm: React.FC = () => {
   const { form, handleSubmit, isLoading } = useQuestionForm()
@@ -39,10 +38,10 @@ export const QuestionForm: React.FC = () => {
   const watchedCapabilitiesSaepId = form.watch('capabilitiesSaepId')
   const watchedCapabilityId = form.watch('capabilityId')
 
-  const subFunctionsQuery = useQuery(getSubFunctions(watchedFunctionId))
-  const performanceStandardsQuery = useQuery(
-    getPerformanceStandards(watchedSubFunctionId)
-  )
+  // const subFunctionsQuery = useQuery(getSubFunctions(watchedFunctionId))
+  // const performanceStandardsQuery = useQuery(
+  //   getPerformanceStandards(watchedSubFunctionId)
+  // )
 
   // Reset dependent fields when parent changes
   useEffect(() => {
@@ -172,10 +171,10 @@ export const QuestionForm: React.FC = () => {
             name='subFunctionId'
             label='Subfunção'
             control={form.control}
-            options={subFunctionsQuery?.data || []}
+            options={[]}
             placeholder='Selecione uma subfunção'
             error={form.formState.errors.subFunctionId?.message}
-            isLoading={subFunctionsQuery.isLoading}
+            isLoading={false}
             disabled={!watchedFunctionId}
           />
 
@@ -183,10 +182,10 @@ export const QuestionForm: React.FC = () => {
             name='performanceStandardId'
             label='Padrão de Performance'
             control={form.control}
-            options={performanceStandardsQuery?.data || []}
+            options={[]}
             placeholder='Selecione um padrão de performance'
             error={form.formState.errors.performanceStandardId?.message}
-            isLoading={performanceStandardsQuery.isLoading}
+            isLoading={false}
             disabled={!watchedSubFunctionId}
           />
         </CardContent>

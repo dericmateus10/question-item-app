@@ -42,6 +42,8 @@ export const useApiData = () => {
     }
   }
 
+  console.log("Functions Query Data:", functionsQuery.data)
+
   return {
     functions: functionsQuery.data?.data || [],
     capabilitiesSaep: capabilitiesSaepQuery.data?.data || [],
