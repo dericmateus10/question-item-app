@@ -12,11 +12,18 @@ import {
 } from '../../../components/ui/select'
 import { cn } from '@/lib/utils'
 
+export type CascadingSelectOption = {
+  id: string
+  attributes: {
+    name: string
+  }
+}
+
 interface CascadingSelectProps {
   name: string
   label: string
   control: any
-  options: Array<{ id: string; attributes: { name: string } }>
+  options: CascadingSelectOption[]
   placeholder?: string
   className?: string
   error?: string

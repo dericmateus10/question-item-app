@@ -73,7 +73,7 @@ export const useApiData = () => {
   })
 
   return {
-    functions: functionsQuery.data?.data || [],
+    functions: functionsQuery.data || [],
     capabilitiesSaep: capabilitiesSaepQuery.data?.data || [],
     capabilities: capabilitiesQuery.data?.data || [],
     knowledges: knowledgesQuery.data?.data || [],

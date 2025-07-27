@@ -1,10 +1,18 @@
-import api from "./api"
+import { FunctionModel } from '@/models/function.model'
+import { StrapiPaginatedResponse } from '@/types/strapi-paginated-response'
+import { adaptFunctions } from './adapters'
+import api from './api'
+import { CascadingSelectOption } from '../components/molecules/cascading-select'
 
 export const questionItemService = {
   // Buscar funções
-  getFunctions: async () => {
-    const response = await api.get("/functions-senais?populate=*")
-    return response.data
+  getFunctions: async (): Promise<CascadingSelectOption[]> => {
+    const response = await api.get(
+      '/functions-senais?sort[0]=description:asc&populate=*&pagination[pageSize]=999&pagination[page]=1'
+    )
+    return adaptFunctions(
+      response.data as StrapiPaginatedResponse<FunctionModel>
+    )
   },
 
   // Buscar subfunções por função
@@ -52,10 +60,10 @@ export const questionItemService = {
   // Upload de arquivo
   uploadFile: async (file) => {
     const formData = new FormData()
-    formData.append("files", file)
-    const response = await api.post("/upload", formData, {
+    formData.append('files', file)
+    const response = await api.post('/upload', formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
     })
     return response.data
