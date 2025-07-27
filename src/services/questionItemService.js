@@ -1,15 +1,10 @@
-'use server'
 import api from "./api"
 
 export const questionItemService = {
   // Buscar funções
   getFunctions: async () => {
     const response = await api.get("/functions-senais?populate=*")
-
-    console.log("Functions response:", response.data)
     return response.data
-
-
   },
 
   // Buscar subfunções por função

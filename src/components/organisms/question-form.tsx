@@ -44,31 +44,31 @@ export const QuestionForm: React.FC = () => {
   // )
 
   // Reset dependent fields when parent changes
-  useEffect(() => {
-    if (watchedFunctionId) {
-      form.setValue('subFunctionId', '')
-      form.setValue('performanceStandardId', '')
-    }
-  }, [watchedFunctionId, form])
+  // useEffect(() => {
+  //   if (watchedFunctionId) {
+  //     form.setValue('subFunctionId', '')
+  //     form.setValue('performanceStandardId', '')
+  //   }
+  // }, [watchedFunctionId, form])
 
-  useEffect(() => {
-    if (watchedSubFunctionId) {
-      form.setValue('performanceStandardId', '')
-    }
-  }, [watchedSubFunctionId, form])
+  // useEffect(() => {
+  //   if (watchedSubFunctionId) {
+  //     form.setValue('performanceStandardId', '')
+  //   }
+  // }, [watchedSubFunctionId, form])
 
-  // XOR logic for capabilities
-  useEffect(() => {
-    if (watchedCapabilitiesSaepId) {
-      form.setValue('capabilityId', '')
-    }
-  }, [watchedCapabilitiesSaepId, form])
+  // // XOR logic for capabilities
+  // useEffect(() => {
+  //   if (watchedCapabilitiesSaepId) {
+  //     form.setValue('capabilityId', '')
+  //   }
+  // }, [watchedCapabilitiesSaepId, form])
 
-  useEffect(() => {
-    if (watchedCapabilityId) {
-      form.setValue('capabilitiesSaepId', '')
-    }
-  }, [watchedCapabilityId, form])
+  // useEffect(() => {
+  //   if (watchedCapabilityId) {
+  //     form.setValue('capabilitiesSaepId', '')
+  //   }
+  // }, [watchedCapabilityId, form])
 
   if (isDataLoading) {
     return (

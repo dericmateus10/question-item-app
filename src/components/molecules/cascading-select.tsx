@@ -63,7 +63,7 @@ export const CascadingSelect: React.FC<CascadingSelectProps> = ({
                   key={option.id}
                   value={option.id}
                 >
-                  {option.attributes.name}
+                  {option.attributes?.name}
                 </SelectItem>
               ))}
             </SelectContent>
